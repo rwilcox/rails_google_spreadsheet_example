@@ -1,6 +1,6 @@
 require 'lib/oauth_helper'
 require 'oauth'
-require 'google-spreadsheet-ruby'
+require "google_spreadsheet"
 
 class HomeController < ApplicationController
   
