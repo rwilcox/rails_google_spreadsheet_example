@@ -10,14 +10,9 @@ class HomeController < ApplicationController
   # Step 1 in the OAuth process...
   def oauth_get_request_token
     scope = "https://spreadsheets.google.com/feeds/"
-    consumer = OAuth::Consumer.new(OauthHelper::consumer_key, OauthHelper::consumer_secret, {
-      :site=>"https://www.google.com", 
-      :request_token_path=>"/accounts/OAuthGetRequestToken",
-      :authorize_path=>"/accounts/OAuthAuthorizeToken",
-      :access_token_path=>"/accounts/OAuthGetAccessToken"})
 
     request_token = consumer.get_request_token(
-      {:oauth_callback => "#{request.host}/oauth_request_authorized" },
+      {:oauth_callback => "http://#{request.host}/oauth_request_authorized" },
       {:scope => scope}
     )
 
@@ -49,4 +44,14 @@ class HomeController < ApplicationController
     
   end
 
+private
+  def consumer
+    OAuth::Consumer.new(OauthHelper::consumer_key, OauthHelper::consumer_secret, {
+      :site=>"https://www.google.com", 
+      :request_token_path=>"/accounts/OAuthGetRequestToken",
+      :authorize_path=>"/accounts/OAuthAuthorizeToken",
+      :access_token_path=>"/accounts/OAuthGetAccessToken"}
+    )
+  end
+  
 end
