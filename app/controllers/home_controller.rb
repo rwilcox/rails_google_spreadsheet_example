@@ -2,6 +2,10 @@ require 'lib/oauth_helper'
 require 'oauth'
 require "google_spreadsheet"
 
+# This controller uses OAuth to authorize (this app) to access a user's data.
+# Some credit where credit is due: <http://runerb.com/2010/01/12/ruby-oauth-youtube/>
+# essentially saved my bacon on this, telling me (almost) exactly what I needed
+# to do.
 class HomeController < ApplicationController
   
   def index
