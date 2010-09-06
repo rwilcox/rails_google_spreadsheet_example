@@ -9,6 +9,9 @@
       <li><%= spreadsheet.title -%></li>
     <% end %>
   </ul>
+  <div class="debug">
+    <pre>OAuthToken: <%= @oauth_token %></pre>
+  </div>
 <% else %>
   <%= link_to "Get My google Spreadsheets", oauth_get_request_token_path %>
 <% end %>
