@@ -7,14 +7,14 @@ require "google_spreadsheet"
 # essentially saved my bacon on this, telling me (almost) exactly what I needed
 # to do.
 class HomeController < ApplicationController
-  
+  before_filter :get_gs_session, :only => [:index, :new_spreadsheet, :create_spreadsheet]
+
   def index
     @spreadsheets = []
-    access_token
-    if @access_token
-      gs_session = GoogleSpreadsheet.login_with_oauth( @access_token )
-      @spreadsheets = gs_session.spreadsheets
+    unless @gs_session.nil?
+      @spreadsheets = @gs_session.spreadsheets
     end
+  end
 
     if session[:username] && session[:password]
       gs_session = GoogleSpreadsheet.login( session[:username], session[:password] )
@@ -89,5 +89,18 @@ private
       )
     end
   end
+
+
+  def get_gs_session
+    access_token
+    if @access_token
+      @gs_session = GoogleSpreadsheet.login_with_oauth( @access_token )
+    end
+
+    if session[:username] && session[:password]
+      @gs_session = GoogleSpreadsheet.login( session[:username], session[:password] )
+    end
+  end
+
 
 end
