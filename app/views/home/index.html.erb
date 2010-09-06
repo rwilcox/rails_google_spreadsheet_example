@@ -1,3 +1,9 @@
 <h1>Welcome to our example using Google Spreadsheets with Oauth</h1>
 
 <p>Hi!</p>
+
+<% if session[:oauth_token] %>
+  <p>Hey, cool, you're authorized (I guess...)</p>
+<% else %>
+  <%= link_to "Get My google Spreadsheets", oauth_get_request_token_path %>
+<% end %>
