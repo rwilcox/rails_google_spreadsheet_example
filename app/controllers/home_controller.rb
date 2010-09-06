@@ -22,7 +22,13 @@ class HomeController < ApplicationController
 
 
   def create_spreadsheet
-    @gs_session.create_spreadsheet(params[:spreadsheet_name])
+    created_sheet = @gs_session.create_spreadsheet(params[:spreadsheet_name])
+    target_worksheet = created_sheet.worksheets[0]
+    target_worksheet[1, 1] = "hello"
+    target_worksheet[1, 2] = "world"
+    target_worksheet[1, 3] = "we are from Ruby!"
+    target_worksheet.save()
+
     flash[:notice] = "Successfully created #{params[:spreadsheet_name]}"
     redirect_to "/"
   end
