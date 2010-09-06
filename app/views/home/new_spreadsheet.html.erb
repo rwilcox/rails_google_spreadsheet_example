@@ -1,0 +1,8 @@
+<h1>Create a new spreadsheet on Google Docs</h1>
+
+<p>Let's create you a new spreadsheet...</p>
+
+<% form_tag(:action => "create_spreadsheet") do %>
+  <p><label>Name:</label><%= text_field_tag :spreadsheet_name %></p>
+  <%= submit_tag "Submit"%>
+<% end -%>

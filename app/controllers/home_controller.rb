@@ -16,11 +16,17 @@ class HomeController < ApplicationController
     end
   end
 
-    if session[:username] && session[:password]
-      gs_session = GoogleSpreadsheet.login( session[:username], session[:password] )
-      @spreadsheets = gs_session.spreadsheets
-    end
+
+  def new_spreadsheet
   end
+
+
+  def create_spreadsheet
+    @gs_session.create_spreadsheet(params[:spreadsheet_name])
+    flash[:notice] = "Successfully created #{params[:spreadsheet_name]}"
+    redirect_to "/"
+  end
+
 
   # Step 1 in the OAuth process... (get request token)
   def oauth_get_request_token
