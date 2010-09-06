@@ -3,15 +3,12 @@
 <p>Hi!</p>
 
 <% if session[:oauth_token] %>
-  <p>Hey, cool, you're authorized (I guess...)</p>
+  <h2>Your Google Docs Spreadsheets</h2>
   <ul>
     <% @spreadsheets.each do |spreadsheet| -%>
       <li><%= spreadsheet.title -%></li>
     <% end %>
   </ul>
-  <div class="debug">
-    <pre>OAuthToken: <%= @oauth_token %></pre>
-  </div>
 <% else %>
   <%= link_to "Get My google Spreadsheets", oauth_get_request_token_path %>
 <% end %>
