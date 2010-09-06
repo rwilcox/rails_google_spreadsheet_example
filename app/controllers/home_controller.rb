@@ -6,8 +6,9 @@ class HomeController < ApplicationController
   
   def index
     @spreadsheets = []
-    if session[:oauth_token]
-      gs_session = GoogleSpreadsheet.login_with_oauth( session[:oauth_token] )
+    access_token
+    if @access_token
+      gs_session = GoogleSpreadsheet.login_with_oauth( @access_token )
       @oauth_token = session[:oauth_token]
       #@spreadsheets = gs_session.spreadsheets
     end
@@ -32,7 +33,7 @@ class HomeController < ApplicationController
   end
 
 
-  # Step 2 in the OAuth process: get the access token
+  # Step 2 in the OAuth process: get the request token
   def oauth_request_authorized
     # Recreate the (now authorized) request token
     request_token = OAuth::RequestToken.new(consumer, 
@@ -60,5 +61,19 @@ private
       :access_token_path=>"/accounts/OAuthGetAccessToken"}
     )
   end
-  
+
+
+  # Step 3 in the OAuth process: create an access token
+  # Once we have the oauth token and oauth secret from the RequestToken
+  # we can create an AccessToken
+  def access_token
+    if session[:oauth_token] && session[:oauth_secret]
+      @access_token ||= OAuth::AccessToken.new(
+          consumer, 
+          session[:oauth_token], 
+          session[:oauth_secret]
+      )
+    end
+  end
+
 end
