@@ -9,6 +9,12 @@
 </head>
 <body>
 
+  <% for name in [:notice, :error] %>
+    <% if flash[name] %>
+      <%= "<div id=\"#{name}\" class='flash'>#{flash[name]}</div>".html_safe %>
+    <% end %>
+  <% end %>
+
 <%= yield %>
 
 </body>
