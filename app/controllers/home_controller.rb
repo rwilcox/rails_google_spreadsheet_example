@@ -4,10 +4,14 @@ require 'oauth'
 class HomeController < ApplicationController
   
   def index
-    consumer_key = OauthHelper::consumer_key
+    @spreadsheets = []
+    if session[:oauth_token]
+      gs_session = GoogleSpreadsheet.login_with_oauth( session[:oauth_token] )
+      @spreadsheets = gs_session.spreadsheets
+    end
   end
 
-  # Step 1 in the OAuth process...
+  # Step 1 in the OAuth process... (get request token)
   def oauth_get_request_token
     scope = "https://spreadsheets.google.com/feeds/"
 
@@ -25,6 +29,8 @@ class HomeController < ApplicationController
     #request_token.authorize_url  # The authorization URL at Google
   end
 
+
+  # Step 2 in the OAuth process: get the access token
   def oauth_request_authorized
     # Recreate the (now authorized) request token
     request_token = OAuth::RequestToken.new(consumer, 
@@ -41,7 +47,6 @@ class HomeController < ApplicationController
     session[:oauth_token] = access_token.token
     session[:oauth_secret] = access_token.secret
     redirect_to "/"
-    
   end
 
 private
