@@ -10,7 +10,7 @@ class HomeController < ApplicationController
     if @access_token
       gs_session = GoogleSpreadsheet.login_with_oauth( @access_token )
       @oauth_token = session[:oauth_token]
-      #@spreadsheets = gs_session.spreadsheets
+      @spreadsheets = gs_session.spreadsheets
     end
   end
 
