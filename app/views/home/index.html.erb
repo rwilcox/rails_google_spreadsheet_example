@@ -2,7 +2,7 @@
 
 <p>Welcome to this example...</p>
 
-<% if session[:oauth_token] %>
+<% if session[:oauth_token] || session[:username] %>
   <h2>Your Google Docs Spreadsheets</h2>
   <ul>
     <% @spreadsheets.each do |spreadsheet| -%>
@@ -10,5 +10,16 @@
     <% end %>
   </ul>
 <% else %>
-  <%= link_to "Get My google Spreadsheets", oauth_get_request_token_path %>
+  <% if RAILS_ENV == "production" %>
+    <%= link_to "Get My google Spreadsheets", oauth_get_request_token_path %>
+  <% else %>
+    <div>
+      <p>Not in production mode, falling back to non oauth sign-in. Enter your Google Username and pass</p>
+        <% form_tag(:action => "plain_login") do %>
+          <p><label>Username:</label><%= text_field_tag :username %></p>
+          <p><label>Password:</label><%= password_field_tag :password %></p>
+          <%= submit_tag "Submit"%>
+        <% end -%>
+    </label>
+  <% end %>
 <% end %>

@@ -54,6 +54,7 @@ GoogleSpreadsheetExample::Application.routes.draw do
 
   match "/oauth_get_request_token" => "home#oauth_get_request_token", :as => "oauth_get_request_token"
   match "/oauth_request_authorized" => "home#oauth_request_authorized", :as => "oauth_request_authorized"
+  match "/plain_login" => "home#plain_login", :as => "plain_login"
 
   # See how all your routes lay out with "rake routes"
 

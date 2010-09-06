@@ -15,6 +15,11 @@ class HomeController < ApplicationController
       gs_session = GoogleSpreadsheet.login_with_oauth( @access_token )
       @spreadsheets = gs_session.spreadsheets
     end
+
+    if session[:username] && session[:password]
+      gs_session = GoogleSpreadsheet.login( session[:username], session[:password] )
+      @spreadsheets = gs_session.spreadsheets
+    end
   end
 
   # Step 1 in the OAuth process... (get request token)
@@ -52,6 +57,12 @@ class HomeController < ApplicationController
     # We use these to recreate the access token
     session[:oauth_token] = access_token.token
     session[:oauth_secret] = access_token.secret
+    redirect_to "/"
+  end
+
+  def plain_login
+    session[:username] = params[:username]
+    session[:password] = params[:password]
     redirect_to "/"
   end
 
