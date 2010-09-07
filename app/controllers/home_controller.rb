@@ -36,7 +36,9 @@ class HomeController < ApplicationController
 
   # Step 1 in the OAuth process... (get request token)
   def oauth_get_request_token
-    scope = "https://spreadsheets.google.com/feeds/"
+    scope = "https://docs.google.com/feeds/ https://spreadsheets.google.com/feeds/"
+    # need two scopes to create new documents. Yes, these are separated by a space
+    # and no they do not need to be URL encoded. WD-rpw 09-07-2010
 
     request_token = consumer.get_request_token(
       {:oauth_callback => "http://#{request.host}/oauth_request_authorized" },
