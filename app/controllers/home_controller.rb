@@ -80,6 +80,11 @@ class HomeController < ApplicationController
     redirect_to "/"
   end
 
+  def logout
+    clear_session
+    redirect_to "/"
+  end
+
 private
   def consumer
     OAuth::Consumer.new(OauthHelper::consumer_key, OauthHelper::consumer_secret, {
@@ -117,4 +122,10 @@ private
   end
 
 
+  def clear_session
+    session[:username] = nil
+    session[:password] = nil
+    session[:oauth_token] = nil
+    session[:oauth_secret] = nil
+  end
 end

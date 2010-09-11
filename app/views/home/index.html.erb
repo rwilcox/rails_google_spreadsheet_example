@@ -13,6 +13,7 @@
     <p>Here's the things you can do...</p>
     <ul>
       <li><%= link_to "Create a New Spreadsheet", new_spreadsheet_path %></li>
+      <li><%= button_to "Logout and start over", logout_path -%></li>
     </ul>
   </div>
 <% else %>
@@ -29,3 +30,4 @@
     </label>
   <% end %>
 <% end %>
+

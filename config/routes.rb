@@ -57,6 +57,7 @@ GoogleSpreadsheetExample::Application.routes.draw do
   match "/plain_login" => "home#plain_login", :as => "plain_login"
   match "/new_spreadsheet" => "home#new_spreadsheet", :as => "new_spreadsheet"
   match "/create_spreadsheet" => "home#create_spreadsheet", :as => "create_spreadsheet"
+  match "/logout" => "home#logout", :as => "logout"
 
   # See how all your routes lay out with "rake routes"
 
