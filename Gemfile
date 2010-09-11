@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.0'
-gem 'google-spreadsheet-ruby'
+gem "google-spreadsheet-ruby", :git => "http://github.com/gimite/google-spreadsheet-ruby.git"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
